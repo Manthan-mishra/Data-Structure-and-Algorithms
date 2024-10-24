@@ -12,6 +12,19 @@ public:
         this->data = data;
         this->next = NULL;
     }
+
+    ~Node()
+
+    {
+        cout << "yaha aaya";
+        int value = this->data;
+        if (this->next != NULL)
+        {
+            delete next;
+            this->next = NULL;
+        }
+        cout << "memory is free for node with data " << value;
+    }
 };
 
 void insert_at_between(Node *&head, int position, int data)
@@ -44,6 +57,34 @@ void insert_at_end(Node *&tail, int data)
     tail = node2;
 }
 
+void delete_node(Node *&head, int position)
+{
+
+    if (position == 1)
+    {
+        Node *temp = head;
+        head = head->next;
+        temp->next = NULL;
+        // clear memory
+        delete temp;
+    }
+    else
+    {
+        Node *curr = head;
+        Node *prev = NULL;
+        int count = 1;
+        while (count < position)
+        {
+            prev = curr;
+            curr = curr->next;
+            count++;
+        }
+        prev->next = curr->next;
+        curr->next = NULL;
+        delete curr;
+    }
+}
+
 void print(Node *&head)
 {
     Node *temp = head;
@@ -52,6 +93,7 @@ void print(Node *&head)
         cout << temp->data << " ";
         temp = temp->next;
     }
+    cout << endl;
 }
 
 int main()
@@ -63,6 +105,8 @@ int main()
     insert_at_end(tail, 15);
     insert_at_between(head, 3, 12);
     insert_at_between(head, 2, 12);
+    print(head);
+    delete_node(head, 2);
     print(head);
 
     return 0;
