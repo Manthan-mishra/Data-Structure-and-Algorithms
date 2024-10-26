@@ -16,7 +16,6 @@ public:
     ~Node()
 
     {
-        cout << "yaha aaya";
         int value = this->data;
         if (this->next != NULL)
         {
